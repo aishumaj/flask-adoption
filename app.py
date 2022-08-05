@@ -1,9 +1,7 @@
 """Flask app for adopt app."""
 
 from flask import Flask, render_template, redirect, request, flash
-
 from flask_debugtoolbar import DebugToolbarExtension
-
 from models import db, connect_db, Pet
 from forms import AddPetForm
 
@@ -43,6 +41,12 @@ def add_pet_form():
         photo_url = form.photo_url.data
         age = form.age.data
         notes = form.notes.data
+
+        #create pet
+        new_pet = Pet(name = name, species = species, photo_url = photo_url, age = age, notes = notes)
+
+        db.session.add(new_pet)
+        db.session.commit()
 
         flash(f"added {name}!")
         return redirect("/add")
