@@ -15,7 +15,7 @@ def connect_db(app):
     db.init_app(app)
 
 class Pet(db.Model):
-
+    
     __tablename__ = "pets"
 
     id = db.Column(db.Integer,

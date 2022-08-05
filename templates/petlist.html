@@ -8,9 +8,9 @@
 
 <div>
   <ul>
-    {% for pet in pets%}
+    {% for pet in pets %}
     <li>
-      <a href="#"> {{ pet.name }} </a>
+      <a href="/{{pet.id}}"> {{ pet.name }} </a>
       <img src = "{{ pet.image_url }}">
       {% if pet.available %}
       <b>Available</b>
