@@ -48,7 +48,7 @@ def add_pet_form():
         db.session.add(new_pet)
         db.session.commit()
 
-        flash(f"added {name}!")
+        flash(f"added {new_pet.name}!")
         return redirect("/add")
 
     else:
