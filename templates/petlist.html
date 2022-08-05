@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %} Available Pets {% endblock %}
+
+{% block content %}
+
+<!-- create list of pets. loop thru pets. show name photo and availabliltu-->
+
+<div>
+  <ul>
+    {% for pet in pets%}
+    <li>
+      <a href="#"> {{ pet.name }} </a>
+      <img src = "{{ pet.image_url }}">
+      {% if pet.available %}
+      <b>Available</b>
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+
+{% endblock %}
