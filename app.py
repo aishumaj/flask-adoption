@@ -1,13 +1,19 @@
 """Flask app for adopt app."""
 
+import os
 from flask import Flask, render_template, redirect, request, flash
 from flask_debugtoolbar import DebugToolbarExtension
 from models import db, connect_db, Pet
 from forms import AddPetForm, EditPetForm
 
+PETFINDER_API_KEY = os.environ['PETFINDER_API_KEY']
+PETFINDER_SECRET_KEY = os.environ['PETFINDER_SECRET_KEY']
+API_TOKEN = os.environ['API_TOKEN']
+
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = "secret"
+
 
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql:///adopt"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -28,9 +34,10 @@ def homepage():
 
     pets = Pet.query.all()
     return render_template("petlist.html", pets = pets)
+    #rename html forms with _
 
 @app.route("/add", methods=["GET", "POST"])
-def add_pet_form():
+def add_pet():
     """Display form to add a new pet; handle adding"""
 
     form = AddPetForm()
@@ -56,7 +63,7 @@ def add_pet_form():
 
 
 @app.route("/<int:pet_id>", methods=["GET", "POST"])
-def show_and_edit_pet_details(pet_id):
+def edit_pet(pet_id):
     """ Display pet details ; handle detail update form """
 
     pet = Pet.query.get_or_404(pet_id)
